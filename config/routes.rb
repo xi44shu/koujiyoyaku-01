@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
   devise_for :users
-  root 'shedules#index'
+  root to: 'shedules#index'
 end
