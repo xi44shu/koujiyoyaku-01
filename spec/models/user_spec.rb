@@ -17,6 +17,13 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("First name can't be blank")
       end
+      it '重複したfirst_nameが存在する場合は登録できない' do
+        @user.save
+        another_user = FactoryBot.build(:user)
+        another_user.first_name = @user.first_name
+        another_user.valid?
+        expect(another_user.errors.full_messages).to include('First name has already been taken')
+      end
       it 'emailが空では登録できない' do
         @user.email = ''
         @user.valid?
